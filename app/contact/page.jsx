@@ -6,6 +6,11 @@ const page = () => {
     <>
       <Header />
       <main>
+        <div className='acontent'>
+          <br />
+          {/* <h3 style={{ textAlign: 'center' }}>created by </h3> <br /> */}
+          <h2>SOFTJIT SINGH </h2> <br />
+        </div>
         <div className='contact'>
           {/* Left Section */}
           <div className='cleft'>
