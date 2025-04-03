@@ -1,13 +1,13 @@
 // import '../bealphax/app/style.css'
 import '../style.css' // ✅ Correct if style.css is in /styles
-import Header from '../header/page'
-import Footer from '../footer/page'
+// import Header from '../header/page'
+// import Footer from '../components/footer'
 import Image from 'next/image'
 
 const Page = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div>
         <div className='about1'>
           <div className='aimg'>
@@ -67,7 +67,7 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

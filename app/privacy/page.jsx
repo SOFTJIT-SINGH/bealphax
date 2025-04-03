@@ -1,10 +1,10 @@
-import Header from '../header/page'
-import Footer from '../footer/page'
+// import Header from '../header/page'
+// import Footer from '../footer/page'
 
 const Privacy = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <div className='about1'>
         <div className='acontent'>
           <h2>Privacy Policy And Terms</h2>
@@ -58,7 +58,7 @@ const Privacy = () => {
           </p>
         </div>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }

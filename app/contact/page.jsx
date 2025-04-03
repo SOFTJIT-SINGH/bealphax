@@ -1,10 +1,11 @@
-import Footer from '../footer/page'
-import Header from '../header/page'
+import style from '../style.css'
+// import Footer from '../components/footer'
+// import Header from '../components/header'
 
 const page = () => {
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <main>
         <div className='acontent'>
           <br />
@@ -97,7 +98,7 @@ const page = () => {
           </div>
         </div>
       </main>
-      <Footer />
+      {/* <Footer /> */}
     </>
   )
 }
