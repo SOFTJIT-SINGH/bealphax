@@ -1,9 +1,6 @@
 // import Image from 'next/image'
 import Link from 'next/link'
-import Footer from './components/footer'
-// import Header from './components/header'
-import './style.css'
-// import '../style.css' // ✅ Correct if style.css is in /styles
+// import './style.css'
 
 export default function Home() {
   return (
@@ -21,9 +18,6 @@ export default function Home() {
             <Link href='/contact'>Go to Contact</Link>
           </nav>
         </main>
-        <div>
-          <Footer />
-        </div>
       </div>
     </>
   )
