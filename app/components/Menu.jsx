@@ -2,8 +2,10 @@
 import Link from 'next/link'
 import { useState } from 'react'
 import Image from 'next/image'
+import Navicons from './navicons'
+import Searchbar from './searchbar'
 
-const menu = () => {
+const Menu = () => {
   const [open, setOpen] = useState(false)
   return (
     <div>
@@ -23,6 +25,8 @@ const menu = () => {
           <Link href='/contact'>Contact</Link>
           <Link href='#'>Sign in</Link>
           <Link href='#'>Cart</Link> */}
+          <br />
+          <Navicons />
           <Link
             href='/'
             className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
@@ -59,10 +63,11 @@ const menu = () => {
           >
             Cart
           </Link>
+          <Searchbar />
         </nav>
       )}
     </div>
   )
 }
 
-export default menu
+export default Menu
