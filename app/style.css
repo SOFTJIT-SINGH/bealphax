@@ -2,7 +2,8 @@
   box-sizing: border-box;
   margin: 0px;
   padding: 0px;
-  font-family: 'Poppins', sans-serif;
+  /* font-family: 'Poppins', sans-serif; */
+  font-family: 'Segoe UI', Geneva, Verdana, sans-sarif;
   /* overflow-x: hidden; */
   list-style: none;
 }

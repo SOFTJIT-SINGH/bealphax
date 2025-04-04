@@ -16,13 +16,49 @@ const menu = () => {
         onClick={() => setOpen((prev) => !prev)}
       />
       {open && (
-        <nav className=''>
-          <Link href='/'>Home</Link>
+        <nav className='absolute bg-white .nav left-0 top-20 w-full flex flex-col h-[calc(100vh-80px)] items-center justify-center gap-8 text-xl z-10'>
+          {/* <Link href='/'>Home</Link>
           <Link href='#'>Categories</Link>
           <Link href='/about'>About</Link>
           <Link href='/contact'>Contact</Link>
           <Link href='#'>Sign in</Link>
-          <Link href='#'>Cart</Link>
+          <Link href='#'>Cart</Link> */}
+          <Link
+            href='/'
+            className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
+          >
+            Home
+          </Link>
+          <Link
+            href='#'
+            className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
+          >
+            Categories
+          </Link>
+          <Link
+            href='/about'
+            className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
+          >
+            About
+          </Link>
+          <Link
+            href='/contact'
+            className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
+          >
+            Contact
+          </Link>
+          <Link
+            href='#'
+            className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
+          >
+            Sign in
+          </Link>
+          <Link
+            href='#'
+            className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'
+          >
+            Cart
+          </Link>
         </nav>
       )}
     </div>
