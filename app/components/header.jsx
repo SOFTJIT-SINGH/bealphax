@@ -23,7 +23,10 @@ const Header = () => {
           {/* left */}
           <div className='w-1/3'>
             <Link href='/' className='flex items-center gap-3'>
-              <Image src='/bealphalogo.svg' alt='' width={24} height={24} />
+              {/* <Image src='/bealphalogo.svg' alt='' width={24} height={24} /> */}
+              <Image src='/alphab.png' alt='' width={24} height={24} />
+              {/* <Image src='/alpha.png' alt='' width={24} height={24} /> */}
+
               <div className='text-2xl tracking-wide'>BE ALPHA</div>
             </Link>
           </div>
