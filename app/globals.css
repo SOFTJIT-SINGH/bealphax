@@ -1,4 +1,7 @@
 @import 'tailwindcss';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -25,13 +28,18 @@
 body {
   background: var(--background);
   color: var(--foreground);
+  /* color: black; */
   /* font-family: Arial, Helvetica, sans-serif; */
   font-family: 'Segoe UI', Geneva, Verdana, sans-sarif;
 }
 
+Link {
+  color: black;
+}
 .headercolor {
   background-color: #ededed;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+  color: black;
 }
 
 .hovlink {
