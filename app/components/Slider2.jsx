@@ -50,19 +50,17 @@ export default function Slider() {
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>
           <div
-            className={`w-screen h-full flex flex-col 2xl:flex-row ${slide.bg}`}
+            className={`w-screen h-full grid grid-rows-2 2xl:grid-cols-2 2xl:grid-rows-1 ${slide.bg}`}
           >
-            {/* Text Section */}
-            <div className='w-full 2xl:w-1/2 h-1/2 2xl:h-full flex items-center justify-center text-center p-8'>
+            {/* Text Side */}
+            <div className='flex items-center justify-center p-8 text-center'>
               <div className='max-w-xl space-y-6'>
                 <h2 className='text-xl lg:text-3xl 2xl:text-5xl'>
                   {slide.description}
                 </h2>
-
                 <h1 className='text-5xl lg:text-6xl 2xl:text-8xl font-semibold'>
                   {slide.title}
                 </h1>
-
                 <Link href={slide.url}>
                   <button className='rounded-md bg-black text-white py-2 px-6 hover:bg-gray-800 transition'>
                     Shop Now
@@ -71,8 +69,8 @@ export default function Slider() {
               </div>
             </div>
 
-            {/* Image Section */}
-            <div className='relative w-full 2xl:w-1/2 h-1/2 2xl:h-full'>
+            {/* Image Side */}
+            <div className='relative w-full h-full'>
               <Image
                 src={slide.img}
                 alt={`Slide ${slide.id}`}
