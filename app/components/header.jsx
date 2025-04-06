@@ -8,7 +8,7 @@ import Navicons from './navicons'
 const Header = () => {
   return (
     <>
-      <div className='h-20 headercolor'>
+      <div className='full h-20 headercolor'>
         <div className='h-20 px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64 relative md:hidden'>
           {/* mobile screen */}
           <div className='h-full flex items-center justify-between'>
@@ -31,14 +31,7 @@ const Header = () => {
               <div className='text-2xl tracking-wide'>ALPHAX</div>
             </Link>
 
-            <div className='hidden xl:flex gap-4'>
-              {/* <nav className='absolute bg-white .nav left-0 top-20 w-full flex items-center justify-center gap-8 text-xl z-10'> */}
-              {/* <Link href='/'>Home</Link>
-          <Link href='#'>Categories</Link>
-          <Link href='/about'>About</Link>
-          <Link href='/contact'>Contact</Link>
-          <Link href='#'>Sign in</Link>
-          <Link href='#'>Cart</Link> */}
+            <div className='hidden lg:w-full lg:flex gap-4'>
               <Link
                 href='/'
                 className='cursor-pointer hover:text-emerald-600 hover:font-bold hover:transition-0.3s'

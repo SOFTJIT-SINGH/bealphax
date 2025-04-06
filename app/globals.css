@@ -2,7 +2,6 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import 'flowbite';
 @import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
@@ -60,9 +59,9 @@ body {
   font-family: 'Segoe UI', Geneva, Verdana, sans-sarif;
 }
 
-Link {
+/* Link {
   color: black;
-}
+} */
 .headercolor {
   background-color: #ededed;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
@@ -157,3 +156,55 @@ Link {
     @apply bg-background text-foreground;
   }
 }
+
+/* ------------------------------------------footer ------------------------------------*/
+/*
+footer {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  background-color: #e3e6f3;
+  padding: 10px;
+  padding-right: 50px;
+  padding-left: 30px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+footer .col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.cont {
+  margin: 0 18px;
+}
+
+footer p {
+  margin: 0 18px;
+  font-family: 'Baloo 2', cursive;
+}
+
+footer a {
+  font-family: 'Baloo 2', cursive;
+}
+
+footer a:hover {
+  color: #088178;
+  font-weight: bold;
+  transition: 0.3s ease;
+}
+
+footer .install .row img {
+  border: 1px solid #088178;
+  border-radius: 6px;
+}
+
+.copyr {
+  width: 100%;
+  text-align: center;
+  justify-content: center;
+} */
