@@ -6,25 +6,27 @@ const Footer = () => {
     <>
       <footer>
         {/* <div className='hidden md:flex flex-row text-center justify-between items-start'> */}
-        <div className='hidden md:grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto px-4 text-center'>
+        <div className='text-sm mt-8 py-5 grid md:text-md md:grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto px-4 text-center'>
           <div className='flex flex-col'>
-            <div className='navl'>
+            <div className='navl sm:grid'>
               {/* <h1 className='font-bold'>BE ALPHA</h1> */}
             </div>
-            <h4 className='cont font-bold'>Contact</h4>
+            <h4 className='cont font-bold tracking-wide mb-2'>ALPHAX</h4>
             <p>
-              <span className='font-semibold'>Address:</span> Hargobind Nagar,
-              Kot Khalsa, Amritsar
+              {/* <span className='font-semibold'>Address:</span>  */}
+              Hargobind Nagar, Kot Khalsa, Amritsar
             </p>
             <p>
-              <span className='font-semibold'>Phone:</span> +91 8528473685
+              {/* <span className='font-semibold'>Phone:</span>  */}
+              +91 8528473685
             </p>
             <p>
-              <span className='font-semibold'>Hours:</span> 24*7
+              {/* <span className='font-semibold'>Hours:</span>  */}
+              24*7
             </p>
           </div>
 
-          <div className='flex flex-col'>
+          <div className='hidden md:grid'>
             <h4 className='font-bold'>About</h4>
             <Link href='/about'>About us</Link>
             <Link href='/privacy'>Privacy Policy</Link>
@@ -32,17 +34,17 @@ const Footer = () => {
             <Link href='/contact'>Contact us</Link>
           </div>
 
-          <div className='flex flex-col'>
+          <div className='hidden md:grid'>
             <h4 className='font-bold'>My Account</h4>
             <Link href='/signin'>Sign In</Link>
             <Link href='/cart'>View Cart</Link>
             <Link href='/contact'>Help</Link>
           </div>
 
-          <div className='flex flex-col install'>
+          <div className='flex text-sm flex-col install'>
             <h4 className='font-bold'>Install App</h4>
             <p>From App Store or Google Play</p>
-            <div className='flex flex-row gap-2'>
+            <div className='flex flex-col md:flex-row gap-2 '>
               <Image
                 src='/assets/images/imag/pay/app.jpg'
                 width={108}
