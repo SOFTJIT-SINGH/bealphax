@@ -9,6 +9,7 @@ const Cartmodel = () => {
         <div> Cart is Empty</div>
       ) : (
         <div>
+          <h2 className='text-xl'>Shopping Cart</h2>
           <div className='flex flex-col gap-8'>
             {/* items */}
 

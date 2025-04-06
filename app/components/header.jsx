@@ -13,7 +13,7 @@ const Header = () => {
           {/* mobile screen */}
           <div className='h-full flex items-center justify-between'>
             <Link href='/'>
-              <div className='text-2xl tracking-wide'>BE ALPHA</div>
+              <div className='text-2xl tracking-wide'>ALPHAX</div>
             </Link>
             <Menu />
           </div>
@@ -28,7 +28,7 @@ const Header = () => {
               <Image src='/alphab.png' alt='' width={24} height={24} />
               {/* <Image src='/alpha.png' alt='' width={24} height={24} /> */}
 
-              <div className='text-2xl tracking-wide'>BE ALPHA</div>
+              <div className='text-2xl tracking-wide'>ALPHAX</div>
             </Link>
 
             <div className='hidden xl:flex gap-4'>
