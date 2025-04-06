@@ -8,7 +8,7 @@ const config = {
   theme: {
     extend: {
       colors: {
-        greens: '#088178', // your custom color
+        sg: '#088178', // your custom color
       },
     },
   },

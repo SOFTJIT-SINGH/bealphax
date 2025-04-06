@@ -27,7 +27,7 @@ const Productslist = () => {
             <span className='font-semibold'>RS. 85</span>
           </div>
           <div className='text-sm text-gray-500'>Description</div>
-          <button className='rounded-2xl ring-1 ring-sg text-sg py-2 px4 hover:bg-sg hover:text-white'>
+          <button className='rounded-2xl ring-1 ring-sg text-emerald-600 py-2 px4 hover:bg-emerald-600 hover:text-white'>
             Add to Cart
           </button>
         </Link>
