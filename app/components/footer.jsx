@@ -64,7 +64,7 @@ const Footer = () => {
           <p>This site has &copy; copyright to BE ALPHA owner(Soft) only</p>
         </div> */}
       </footer>
-      <div className='copyr'>
+      <div className='text-center items-center justify-between'>
         <p>This site has &copy; copyright to BE ALPHA owner(Soft) only</p>
       </div>
     </>
