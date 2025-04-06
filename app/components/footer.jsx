@@ -6,7 +6,8 @@ const Footer = () => {
     <>
       <footer>
         {/* <div className='hidden md:flex flex-row text-center justify-between items-start'> */}
-        <div className='text-sm mt-8 py-5 grid md:text-md md:grid grid-cols-2 lg:grid-cols-4 gap-8 max-w-[1200px] mx-auto px-4 text-center'>
+        <div className='full headercolor max-w-[1200px] text-sm mt-8 py-5 grid md:text-md md:grid grid-cols-2 lg:grid-cols-4 gap-8 mx-auto px-4 text-center'>
+          {' '}
           <div className='flex flex-col'>
             <div className='navl sm:grid'>
               {/* <h1 className='font-bold'>BE ALPHA</h1> */}
@@ -25,7 +26,6 @@ const Footer = () => {
               24*7
             </p>
           </div>
-
           <div className='hidden md:grid'>
             <h4 className='font-bold'>About</h4>
             <Link href='/about'>About us</Link>
@@ -33,17 +33,15 @@ const Footer = () => {
             <Link href='/terms'>Terms and Conditions</Link>
             <Link href='/contact'>Contact us</Link>
           </div>
-
           <div className='hidden md:grid'>
             <h4 className='font-bold'>My Account</h4>
             <Link href='/signin'>Sign In</Link>
             <Link href='/cart'>View Cart</Link>
             <Link href='/contact'>Help</Link>
           </div>
-
           <div className='flex text-sm flex-col install'>
             <h4 className='font-bold'>Install App</h4>
-            <p>From App Store or Google Play</p>
+            {/* <p>From App Store or Google Play</p> */}
             <div className='flex flex-col md:flex-row gap-2 '>
               <Image
                 src='/assets/images/imag/pay/app.jpg'

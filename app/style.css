@@ -217,7 +217,7 @@ h2 {
 
 .about1 {
   display: flex;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
 }
 
 .about1 .aimg img {
