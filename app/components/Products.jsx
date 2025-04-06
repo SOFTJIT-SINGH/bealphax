@@ -27,7 +27,115 @@ const Productslist = () => {
             <span className='font-semibold'>RS. 85</span>
           </div>
           <div className='text-sm text-gray-500'>Description</div>
-          <button className='rounded-2xl ring-1 ring-sg text-emerald-600 py-2 px4 hover:bg-emerald-600 hover:text-white'>
+          <button className='rounded-2xl ring-1 ring-emerald-600 w-max text-emerald-600 py-2 px-4 hover:bg-emerald-600 hover:text-white text-xs'>
+            Add to Cart
+          </button>
+        </Link>
+        <Link
+          href='/products'
+          className='w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]'
+        >
+          <div className='relative h-80 w-full'>
+            <Image
+              src='/models/m3.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity ease-in-out duration-500'
+            />
+            <Image
+              src='/models/m1.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md'
+            />
+          </div>
+          <div className='flex justify-between'>
+            <span className='font-medium'>Product Name</span>
+            <span className='font-semibold'>RS. 85</span>
+          </div>
+          <div className='text-sm text-gray-500'>Description</div>
+          <button className='rounded-2xl ring-1 ring-emerald-600 w-max text-emerald-600 py-2 px-4 hover:bg-emerald-600 hover:text-white text-xs'>
+            Add to Cart
+          </button>
+        </Link>
+        <Link
+          href='/products'
+          className='w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]'
+        >
+          <div className='relative h-80 w-full'>
+            <Image
+              src='/models/m4.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity ease-in-out duration-500'
+            />
+            <Image
+              src='/models/m1.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md'
+            />
+          </div>
+          <div className='flex justify-between'>
+            <span className='font-medium'>Product Name</span>
+            <span className='font-semibold'>RS. 85</span>
+          </div>
+          <div className='text-sm text-gray-500'>Description</div>
+          <button className='rounded-2xl ring-1 ring-emerald-600 w-max text-emerald-600 py-2 px-4 hover:bg-emerald-600 hover:text-white text-xs'>
+            Add to Cart
+          </button>
+        </Link>
+        <Link
+          href='/products'
+          className='w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]'
+        >
+          <div className='relative h-80 w-full'>
+            <Image
+              src='/models/m5.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity ease-in-out duration-500'
+            />
+            <Image
+              src='/models/m1.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md'
+            />
+          </div>
+          <div className='flex justify-between'>
+            <span className='font-medium'>Product Name</span>
+            <span className='font-semibold'>RS. 85</span>
+          </div>
+          <div className='text-sm text-gray-500'>Description</div>
+          <button className='rounded-2xl ring-1 ring-emerald-600 w-max text-emerald-600 py-2 px-4 hover:bg-emerald-600 hover:text-white text-xs'>
+            Add to Cart
+          </button>
+        </Link>
+        <Link
+          href='/products'
+          className='w-full flex flex-col gap-4 sm:w-[45%] lg:w-[22%]'
+        >
+          <div className='relative h-80 w-full'>
+            <Image
+              src='/models/m7.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md z-10 hover:opacity-0 transition-opacity ease-in-out duration-500'
+            />
+            <Image
+              src='/models/m1.jpg'
+              fill
+              sizes='25vw'
+              className='absolute object-cover rounded-md'
+            />
+          </div>
+          <div className='flex justify-between'>
+            <span className='font-medium'>Product Name</span>
+            <span className='font-semibold'>RS. 85</span>
+          </div>
+          <div className='text-sm text-gray-500'>Description</div>
+          <button className='rounded-2xl ring-1 ring-emerald-600 w-max text-emerald-600 py-2 px-4 hover:bg-emerald-600 hover:text-white text-xs'>
             Add to Cart
           </button>
         </Link>
