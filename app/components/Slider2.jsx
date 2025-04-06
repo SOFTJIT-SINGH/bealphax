@@ -14,7 +14,7 @@ const slides = [
     title: 'Sale! Up to 50% off!',
     description: 'Summer Sale Collections',
     img: '/models/m2.jpg',
-    url: '/',
+    url: '/products',
     bg: 'bg-gradient-to-r from-yellow-50 to-pink-50',
   },
   {
@@ -22,7 +22,7 @@ const slides = [
     title: 'New Arrivals!',
     description: 'Check out our latest collection',
     img: '/models/m1.jpg',
-    url: '/',
+    url: '/products',
     bg: 'bg-gradient-to-r from-green-50 to-blue-50',
   },
   {
@@ -30,7 +30,7 @@ const slides = [
     title: 'Winter Deals!',
     description: 'Hot discounts for cold days',
     img: '/models/m4.jpg',
-    url: '/',
+    url: '/products',
     bg: 'bg-gradient-to-r from-gray-50 to-purple-50',
   },
 ]
