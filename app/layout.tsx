@@ -31,10 +31,13 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang='en'>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} {inter.className} antialiased bg-zinc-100 text-zinc-900 dark:bg-zinc-900 dark:text-zinc-50`}
         >
           <Header />
+          {/* <main className='mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0'> */}
+            <main>
           {children}
+          </main>
           <Footer />
         </body>
       </html>

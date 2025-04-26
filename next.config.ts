@@ -1,6 +1,12 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
+  experimental: {
+    serverActions: {}, // Correct ✅
+  },
+
+  serverExternalPackages: ['@prisma/client'], // Moved here ✅
+
   images: {
     remotePatterns: [
       {
