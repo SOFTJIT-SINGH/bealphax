@@ -14,7 +14,7 @@ const Page = () => {
               width={0}
               height={0}
               sizes='100vw'
-              className='w-full h-auto object-contain'
+              className='w-full h-auto object-contain border-rounded-md hover:transform-3d transition-transform hover:scale-100 ease-in-out duration-300'
             />
           </div>
         </div>
