@@ -1,8 +1,6 @@
 'use client';
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { toast } from 'react-hot-toast';
-
 
 type Product = {
   id: string;

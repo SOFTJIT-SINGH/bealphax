@@ -8,6 +8,12 @@ const nextConfig: NextConfig = {
   serverExternalPackages: ['@prisma/client'], // Moved here ✅
 
   images: {
+    domains: [
+      "picsum.photos", 
+      "images.unsplash.com", 
+      "res.cloudinary.com"
+    ],
+
     remotePatterns: [
       {
         protocol: 'https',

@@ -1,9 +1,20 @@
 // app/products/page.tsx
-"use client"; // This tells Next.js that this page is client-side
+"use client";
 
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+
+
+type Product = {
+  id: string;
+  name: string;
+  description: string;
+  price: number;
+  imageUrl: string;
+};
+
 const ProductsPage = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -31,18 +42,25 @@ const ProductsPage = () => {
   const handleDelete = async (id: string) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this product?");
     if (!confirmDelete) return;
-
+  
     try {
-      await fetch('/api/products/deleteProduct', {
+      const res = await fetch(`/api/products/${id}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id }),
       });
-      setProducts((prev) => prev.filter((product) => product.id !== id)); // Remove deleted product from the state
+  
+      if (!res.ok) {
+        throw new Error('Failed to delete product');
+      }
+  
+      setProducts((prev) => prev.filter((product) => product.id !== id));
+      toast.success('Product deleted successfully!');
     } catch (error) {
-      setError('Failed to delete product');
+      toast.error('Failed to delete product');
     }
   };
+  
+  
 
   if (loading) {
     return <p>Loading...</p>;
@@ -63,10 +81,9 @@ const ProductsPage = () => {
           >
             <Image
               src={product.imageUrl}
-              // alt={product.name}
               alt="Product Image"
-              width='100'
-              height='100'
+              width={100}
+              height={100}
               className="w-full h-48 object-cover mb-2 rounded"
             />
             <h2 className="text-xl font-semibold">{product.name}</h2>

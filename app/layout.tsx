@@ -4,6 +4,7 @@ import './globals.css'
 import Header from './components/header'
 import Footer from './components/footer'
 import { ClerkProvider } from '@clerk/nextjs'
+import { Toaster } from 'react-hot-toast'
 
 // import './style.css'
 
@@ -37,7 +38,9 @@ export default function RootLayout({
           {/* <main className='mx-auto px-4 sm:px-6 xl:max-w-5xl xl:px-0'> */}
             <main>
           {children}
+          <Toaster position="top-center" />
           </main>
+
           <Footer />
         </body>
       </html>

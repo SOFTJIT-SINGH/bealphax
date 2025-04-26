@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast";
 
 const AddProductPage = () => {
   const [error, setError] = useState<string | null>(null);
@@ -35,10 +36,10 @@ const AddProductPage = () => {
         throw new Error(errorData.error || 'Something went wrong');
       }
 
-      setSuccessMessage("Product added successfully!");
-      router.push('/'); // Redirect to home if you want
+      toast.success("Product added successfully! 🎉"); // ✅ toast for success
+      router.push('/'); // Redirect to homepage
     } catch (err: any) {
-      setError(err.message || 'Something went wrong!');
+      toast.error(err.message || 'Something went wrong! 😢'); // ✅ toast for error
     }
   };
 
