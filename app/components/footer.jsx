@@ -6,7 +6,7 @@ const Footer = () => {
     <>
       <footer>
         {/* <div className='hidden md:flex flex-row text-center justify-between items-start'> */}
-        <div className='full headercolor max-w-[1200px] text-sm mt-8 py-5 grid md:text-md md:grid grid-cols-2 lg:grid-cols-4 gap-8 mx-auto px-4 text-center'>
+        <div className='full max-w-[1200px] text-sm mt-8 py-5 grid md:text-md md:grid grid-cols-2 lg:grid-cols-4 gap-8 mx-auto px-4 text-center'>
           {' '}
           <div className='flex flex-col'>
             <div className='navl sm:grid'>

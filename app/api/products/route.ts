@@ -19,6 +19,7 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     const products = await prisma.product.findMany();
+    console.table(products);
     return NextResponse.json(products); // ✅ send the products back
   } catch (error) {
     console.error(error);

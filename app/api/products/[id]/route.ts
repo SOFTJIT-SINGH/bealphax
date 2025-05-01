@@ -4,7 +4,6 @@ import { prisma } from "@/lib/db/prisma";
 export async function DELETE(req: Request, { params }: { params: { id: string } }) {
   const id = Number(params.id);
 
-
   console.log(`Attempting to delete product with id: ${id}`); // Debug log
 
   try {

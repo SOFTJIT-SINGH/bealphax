@@ -2,17 +2,15 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast";
+import { toast } from "react-hot-toast"; // Make sure you have this import
 
 const AddProductPage = () => {
   const [error, setError] = useState<string | null>(null);
-  const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setSuccessMessage(null);
 
     const formData = new FormData(e.target as HTMLFormElement);
     const data = {
@@ -36,10 +34,28 @@ const AddProductPage = () => {
         throw new Error(errorData.error || 'Something went wrong');
       }
 
-      toast.success("Product added successfully! 🎉"); // ✅ toast for success
+      toast.success("Product added successfully! 🎉", {
+        icon: '✔️',  // Success icon
+        style: {
+          background: '#4BB543',  // Green background for success
+          color: '#fff',  // White text color
+          borderRadius: '8px',  // Round edges for the toast
+        },
+        className: 'animate-toast-slide-in', // Apply slide-in animation
+        duration: 3000,  // Show toast for 3 seconds
+      });
       router.push('/'); // Redirect to homepage
     } catch (err: any) {
-      toast.error(err.message || 'Something went wrong! 😢'); // ✅ toast for error
+      toast.error("Something went wrong! 😢", {
+        icon: '❌',  // Error icon
+        style: {
+          background: '#F44336',  // Red background for errors
+          color: '#fff',  // White text color
+          borderRadius: '8px',  // Round edges for the toast
+        },
+        className: 'animate-toast-slide-in', // Apply slide-in animation
+        duration: 3000,  // Show toast for 3 seconds
+      });
     }
   };
 
@@ -47,8 +63,6 @@ const AddProductPage = () => {
     <div className="items-center max-w-xl mx-auto mt-8 max-h-full">
       <form onSubmit={handleSubmit}>
         <h1 className="font-extrabold text-3xl">Add Product</h1>
-        {error && <div className="text-red-500">{error}</div>}
-        {successMessage && <div className="text-green-500">{successMessage}</div>}
         
         <input required name="name" placeholder="Name" className="input-bordered border-2 py-2 px-4 rounded-md input mb-3 w-full"/>
         <textarea required name="description" placeholder="Description" className="input-bordered border-2 py-2 px-4 input max-w-full rounded-md"/>
