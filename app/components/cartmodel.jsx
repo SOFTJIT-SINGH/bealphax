@@ -1,4 +1,7 @@
 'use client'
+// This component displays a shopping cart model with items, subtotal, and actions.
+// It uses Zustand for state management to handle cart items and actions like adding, removing, and clearing the cart.
+
 import Image from 'next/image'
 const Cartmodel = () => {
   const cartitems = true

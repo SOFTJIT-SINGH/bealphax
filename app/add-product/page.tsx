@@ -1,80 +1,72 @@
 "use client";
 
-import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { toast } from "react-hot-toast"; // Make sure you have this import
+import { useState } from "react";
 
-const AddProductPage = () => {
-  const [error, setError] = useState<string | null>(null);
+const AddProduct = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setError(null);
+    setLoading(true);
 
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = {
-      name: formData.get('name')?.toString(),
-      description: formData.get('description')?.toString(),
-      price: parseFloat(formData.get('price')?.toString() || '0'),
-      imageUrl: formData.get('imageurl')?.toString(),
-    };
-
+    const formData = new FormData(e.currentTarget);
+    
+    // We are no longer using Prisma here.
+    // Instead, we are sending the form data to our API endpoint.
     try {
-      const response = await fetch('/api/products', {
-        method: 'POST',
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+      const res = await fetch("/api/products", {
+        method: "POST",
+        body: formData,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Something went wrong');
+      if (!res.ok) {
+        throw new Error("Failed to create product");
       }
+      
+      const data = await res.json();
+      console.log("Product created successfully:", data);
+      router.push("/products"); // Redirect to the products page after success
 
-      toast.success("Product added successfully! 🎉", {
-        icon: '✔️',  // Success icon
-        style: {
-          background: '#4BB543',  // Green background for success
-          color: '#fff',  // White text color
-          borderRadius: '8px',  // Round edges for the toast
-        },
-        className: 'animate-toast-slide-in', // Apply slide-in animation
-        duration: 3000,  // Show toast for 3 seconds
-      });
-      router.push('/'); // Redirect to homepage
-    } catch (err: any) {
-      toast.error("Something went wrong! 😢", {
-        icon: '❌',  // Error icon
-        style: {
-          background: '#F44336',  // Red background for errors
-          color: '#fff',  // White text color
-          borderRadius: '8px',  // Round edges for the toast
-        },
-        className: 'animate-toast-slide-in', // Apply slide-in animation
-        duration: 3000,  // Show toast for 3 seconds
-      });
+    } catch (error) {
+      console.error("Error creating product:", error);
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <div className="items-center max-w-xl mx-auto mt-8 max-h-full">
-      <form onSubmit={handleSubmit}>
-        <h1 className="font-extrabold text-3xl">Add Product</h1>
-        
-        <input required name="name" placeholder="Name" className="input-bordered border-2 py-2 px-4 rounded-md input mb-3 w-full"/>
-        <textarea required name="description" placeholder="Description" className="input-bordered border-2 py-2 px-4 input max-w-full rounded-md"/>
-        <input required name="imageurl" placeholder="Image URL" type="url" className="input-bordered border-2 py-2 px-4 rounded-md input mb-3 w-full"/>
-        <input required name="price" placeholder="Price" type="number" className="input-bordered input border-2 py-2 px-4 rounded-md mb-3 w-full"/>
-        
-        <button className="btn btn-primary btn-block py-2 px-4 rounded-md bg-amber-300" type="submit">
-          Add Product
+    <div className="p-4 lg:px-20 xl:px-40 flex items-center justify-center text-red-500">
+      <form className="flex flex-wrap gap-4" onSubmit={handleSubmit}>
+        <h1 className="text-4xl text-center w-full">Add New Product</h1>
+        <div className="w-full flex flex-col gap-2">
+          <label>Title</label>
+          <input className="ring-1 ring-red-200 p-2 rounded-sm" type="text" name="title" />
+        </div>
+        <div className="w-full flex flex-col gap-2">
+          <label>Description</label>
+          <textarea className="ring-1 ring-red-200 p-2 rounded-sm" name="desc" />
+        </div>
+        <div className="w-full flex flex-col gap-2">
+          <label>Price</label>
+          <input className="ring-1 ring-red-200 p-2 rounded-sm" type="number" step="0.01" name="price" />
+        </div>
+        <div className="w-full flex flex-col gap-2">
+            <label>Category</label>
+            <input className="ring-1 ring-red-200 p-2 rounded-sm" type="text" name="catSlug" />
+        </div>
+        {/* We will handle the image upload in a later step to keep things simple for now */}
+        <button
+          type="submit"
+          className="bg-red-500 text-white w-full p-3 rounded-md"
+          disabled={loading}
+        >
+          {loading ? "Submitting..." : "Submit"}
         </button>
       </form>
     </div>
   );
 };
 
-export default AddProductPage;
+export default AddProduct;

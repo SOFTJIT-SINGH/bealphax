@@ -1,3 +1,6 @@
+// fetching a single product from the database and sending it as JSON.
+
+
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db/prisma";
 

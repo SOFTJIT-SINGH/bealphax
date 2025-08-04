@@ -1,95 +1,54 @@
-'use client'
+"use client";
 
-import Link from 'next/link'
-import Image from 'next/image'
-import { useState } from 'react'
-import {
-  useUser,
-  SignInButton,
-  SignUpButton,
-  SignOutButton,
-} from '@clerk/nextjs'
-import Cartmodel from './cartmodel'
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
+import CartModal from "./cartmodel";
 
-const Navicons = () => {
-  const [isProfileOpen, setIsProfileOpen] = useState(false)
-  const [isCartOpen, setIsCartOpen] = useState(false)
+// 1. Import the cart's "brain"
+import { useCartStore } from "@/store/cartStore";
 
-  const { user, isSignedIn } = useUser()
+const NavIcons = () => {
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
-  const handleProfile = () => {
-    setIsProfileOpen((prev) => !prev)
-  }
+  // 2. Connect to the brain and get the cart array
+  const { cart } = useCartStore();
 
   return (
-    <div className='flex items-center gap-4 xl:gap-6 relative'>
+    <div className="flex items-center gap-4 xl:gap-6 relative">
       <Image
-        src='/account.png'
-        alt='account'
-        width={28}
-        height={28}
-        className='cursor-pointer'
-        onClick={handleProfile}
+        src="/profile.png"
+        alt=""
+        width={22}
+        height={22}
+        className="cursor-pointer"
+        onClick={() => setIsProfileOpen((prev) => !prev)}
       />
-
       {isProfileOpen && (
-        <div className='absolute bg-white p-4 rounded-md top-12 left-0 text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20'>
-          {isSignedIn ? (
-            <>
-              <Link href='/profile'>
-                <span className='block cursor-pointer hover:underline'>
-                  Profile
-                </span>
-              </Link>
-              <SignOutButton>
-                <span className='mt-2 block cursor-pointer hover:underline text-red-500'>
-                  Logout
-                </span>
-              </SignOutButton>
-            </>
-          ) : (
-            <>
-              <SignInButton mode='modal'>
-                <span className='block cursor-pointer hover:underline'>
-                  Login
-                </span>
-              </SignInButton>
-              <SignUpButton mode='modal'>
-                <span className='block cursor-pointer hover:underline'>
-                  Sign Up
-                </span>
-              </SignUpButton>
-            </>
-          )}
+        <div className="absolute p-4 rounded-md top-12 left-0 text-sm shadow-[0_3px_10px_rgb(0,0,0,0.2)] z-20">
+          <Link href="/profile">Profile</Link>
+          <div className="mt-2 cursor-pointer">Logout</div>
         </div>
       )}
-
-      {/* Bell Icon */}
       <Image
-        src='/bell.png'
-        alt='bell'
-        width={28}
-        height={28}
-        className='cursor-pointer'
+        src="/notification.png"
+        alt=""
+        width={22}
+        height={22}
+        className="cursor-pointer"
       />
-
-      {/* Cart Icon */}
-      <div className='cursor-pointer relative'>
-        <Image
-          src='/cart.png'
-          alt='cart'
-          width={28}
-          height={28}
-          onClick={() => setIsCartOpen((prev) => !prev)}
-        />
-        <div className='absolute -top-4 -right-4 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs'>
-          0
+      {/* 3. This Link now goes to our new /cart page */}
+      <Link href="/cart" className="relative cursor-pointer">
+        <Image src="/cart.png" alt="" width={22} height={22} />
+        {/* 4. This div displays the number of items in the cart */}
+        <div className="absolute -top-4 -right-4 bg-red-500 text-white text-sm rounded-full w-6 h-6 flex items-center justify-center">
+          {cart.length}
         </div>
-      </div>
-
-      {isCartOpen && <Cartmodel />}
+      </Link>
+      {isCartOpen && <CartModal />}
     </div>
-  )
-}
+  );
+};
 
-export default Navicons
+export default NavIcons;

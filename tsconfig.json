@@ -31,6 +31,6 @@
     ".next/types/**/*.ts",
     "app/components/searchbar.jsx",
     "helpers/mailer.jsx"
-  ],
+, "store/cartStore.js"  ],
   "exclude": ["node_modules"]
 }

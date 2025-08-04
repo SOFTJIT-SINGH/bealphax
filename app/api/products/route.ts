@@ -1,51 +1,44 @@
-// // app/api/products/route.ts
-// import { NextRequest, NextResponse } from "next/server";
-// import { prisma } from "@/lib/db/prisma";
+// app/api/products/route.ts
 
-// export async function GET(req: NextRequest) {
-//   try {
-//     const products = await prisma.product.findMany();
-//     return NextResponse.json(products);
-//   } catch (error) {
-//     console.error(error);
-//     return NextResponse.json({ error: "Something went wrong" }, { status: 500 });
-//   }
-// }
-
-import { prisma } from "@/lib/db/prisma";
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// GET all products
+// This is the function we are adding back in
 export async function GET() {
   try {
     const products = await prisma.product.findMany();
-    console.table(products);
-    return NextResponse.json(products); // ✅ send the products back
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 });
+    return NextResponse.json(products, { status: 200 });
+  } catch (err) {
+    console.error("Error in GET /api/products:", err);
+    return NextResponse.json(
+      { message: "Something went wrong fetching products!" },
+      { status: 500 }
+    );
   }
 }
 
-// POST a new product
+// This is the function you just fixed! It stays the same.
 export async function POST(req: Request) {
   try {
-    const body = await req.json();
+    const body = await req.formData();
+    const title = body.get("title") as string;
+    const desc = body.get("desc") as string;
+    const price = parseFloat(body.get("price") as string);
 
     const product = await prisma.product.create({
       data: {
-        name: body.name,
-        description: body.description,
-        price: body.price,
-        imageUrl: body.imageUrl,
-        inStock: true,
+        title: title,
+        desc: desc,
+        price: price,
       },
     });
 
-    return NextResponse.json(product);
-    
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ error: "Failed to create product" }, { status: 500 });
+    return NextResponse.json(product, { status: 201 });
+  } catch (err) {
+    console.error("Error in POST /api/products:", err);
+    return NextResponse.json(
+      { message: "Something went wrong during product creation!" },
+      { status: 500 }
+    );
   }
 }

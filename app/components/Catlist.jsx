@@ -1,4 +1,7 @@
 'use client'
+// This component displays a list of product categories using Swiper for a responsive carousel layout.
+// It imports necessary modules from Swiper and Next.js for image handling and routing.
+
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation, Autoplay } from 'swiper/modules'
 import 'swiper/css'

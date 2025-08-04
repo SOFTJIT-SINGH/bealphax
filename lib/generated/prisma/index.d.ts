@@ -845,7 +845,7 @@ export namespace Prisma {
 
   export type ProductMinAggregateOutputType = {
     id: string | null
-    name: string | null
+    title: string | null
     description: string | null
     price: number | null
     inStock: boolean | null
@@ -856,7 +856,7 @@ export namespace Prisma {
 
   export type ProductMaxAggregateOutputType = {
     id: string | null
-    name: string | null
+    title: string | null
     description: string | null
     price: number | null
     inStock: boolean | null
@@ -867,7 +867,7 @@ export namespace Prisma {
 
   export type ProductCountAggregateOutputType = {
     id: number
-    name: number
+    title: number
     description: number
     price: number
     inStock: number
@@ -888,7 +888,7 @@ export namespace Prisma {
 
   export type ProductMinAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
     price?: true
     inStock?: true
@@ -899,7 +899,7 @@ export namespace Prisma {
 
   export type ProductMaxAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
     price?: true
     inStock?: true
@@ -910,7 +910,7 @@ export namespace Prisma {
 
   export type ProductCountAggregateInputType = {
     id?: true
-    name?: true
+    title?: true
     description?: true
     price?: true
     inStock?: true
@@ -1008,7 +1008,7 @@ export namespace Prisma {
 
   export type ProductGroupByOutputType = {
     id: string
-    name: string
+    title: string
     description: string
     price: number
     inStock: boolean
@@ -1038,7 +1038,7 @@ export namespace Prisma {
 
   export type ProductSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
     price?: boolean
     inStock?: boolean
@@ -1051,7 +1051,7 @@ export namespace Prisma {
 
   export type ProductSelectScalar = {
     id?: boolean
-    name?: boolean
+    title?: boolean
     description?: boolean
     price?: boolean
     inStock?: boolean
@@ -1060,14 +1060,14 @@ export namespace Prisma {
     updatedAt?: boolean
   }
 
-  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "description" | "price" | "inStock" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
+  export type ProductOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "title" | "description" | "price" | "inStock" | "imageUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["product"]>
 
   export type $ProductPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Product"
     objects: {}
     scalars: $Extensions.GetPayloadResult<{
       id: string
-      name: string
+      title: string
       description: string
       price: number
       inStock: boolean
@@ -1467,7 +1467,7 @@ export namespace Prisma {
    */
   interface ProductFieldRefs {
     readonly id: FieldRef<"Product", 'String'>
-    readonly name: FieldRef<"Product", 'String'>
+    readonly title: FieldRef<"Product", 'String'>
     readonly description: FieldRef<"Product", 'String'>
     readonly price: FieldRef<"Product", 'Float'>
     readonly inStock: FieldRef<"Product", 'Boolean'>
@@ -1828,7 +1828,7 @@ export namespace Prisma {
 
   export const ProductScalarFieldEnum: {
     id: 'id',
-    name: 'name',
+    title: 'title',
     description: 'description',
     price: 'price',
     inStock: 'inStock',
@@ -1932,7 +1932,7 @@ export namespace Prisma {
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
     id?: StringFilter<"Product"> | string
-    name?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
     description?: StringFilter<"Product"> | string
     price?: FloatFilter<"Product"> | number
     inStock?: BoolFilter<"Product"> | boolean
@@ -1943,7 +1943,7 @@ export namespace Prisma {
 
   export type ProductOrderByWithRelationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     price?: SortOrder
     inStock?: SortOrder
@@ -1957,7 +1957,7 @@ export namespace Prisma {
     AND?: ProductWhereInput | ProductWhereInput[]
     OR?: ProductWhereInput[]
     NOT?: ProductWhereInput | ProductWhereInput[]
-    name?: StringFilter<"Product"> | string
+    title?: StringFilter<"Product"> | string
     description?: StringFilter<"Product"> | string
     price?: FloatFilter<"Product"> | number
     inStock?: BoolFilter<"Product"> | boolean
@@ -1968,7 +1968,7 @@ export namespace Prisma {
 
   export type ProductOrderByWithAggregationInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     price?: SortOrder
     inStock?: SortOrder
@@ -1987,7 +1987,7 @@ export namespace Prisma {
     OR?: ProductScalarWhereWithAggregatesInput[]
     NOT?: ProductScalarWhereWithAggregatesInput | ProductScalarWhereWithAggregatesInput[]
     id?: StringWithAggregatesFilter<"Product"> | string
-    name?: StringWithAggregatesFilter<"Product"> | string
+    title?: StringWithAggregatesFilter<"Product"> | string
     description?: StringWithAggregatesFilter<"Product"> | string
     price?: FloatWithAggregatesFilter<"Product"> | number
     inStock?: BoolWithAggregatesFilter<"Product"> | boolean
@@ -1998,7 +1998,7 @@ export namespace Prisma {
 
   export type ProductCreateInput = {
     id: string
-    name: string
+    title: string
     description: string
     price: number
     inStock?: boolean
@@ -2009,7 +2009,7 @@ export namespace Prisma {
 
   export type ProductUncheckedCreateInput = {
     id: string
-    name: string
+    title: string
     description: string
     price: number
     inStock?: boolean
@@ -2019,7 +2019,7 @@ export namespace Prisma {
   }
 
   export type ProductUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     inStock?: BoolFieldUpdateOperationsInput | boolean
@@ -2029,7 +2029,7 @@ export namespace Prisma {
   }
 
   export type ProductUncheckedUpdateInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     inStock?: BoolFieldUpdateOperationsInput | boolean
@@ -2040,7 +2040,7 @@ export namespace Prisma {
 
   export type ProductCreateManyInput = {
     id: string
-    name: string
+    title: string
     description: string
     price: number
     inStock?: boolean
@@ -2050,7 +2050,7 @@ export namespace Prisma {
   }
 
   export type ProductUpdateManyMutationInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     inStock?: BoolFieldUpdateOperationsInput | boolean
@@ -2060,7 +2060,7 @@ export namespace Prisma {
   }
 
   export type ProductUncheckedUpdateManyInput = {
-    name?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
     price?: FloatFieldUpdateOperationsInput | number
     inStock?: BoolFieldUpdateOperationsInput | boolean
@@ -2129,7 +2129,7 @@ export namespace Prisma {
 
   export type ProductCountOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     price?: SortOrder
     inStock?: SortOrder
@@ -2144,7 +2144,7 @@ export namespace Prisma {
 
   export type ProductMaxOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     price?: SortOrder
     inStock?: SortOrder
@@ -2155,7 +2155,7 @@ export namespace Prisma {
 
   export type ProductMinOrderByAggregateInput = {
     id?: SortOrder
-    name?: SortOrder
+    title?: SortOrder
     description?: SortOrder
     price?: SortOrder
     inStock?: SortOrder

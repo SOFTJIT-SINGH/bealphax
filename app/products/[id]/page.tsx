@@ -1,68 +1,47 @@
-'use client'
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+// app/products/[id]/page.tsx
 
-type Product = {
-  id: string;
-  name: string;
-  description: string;
-  price: number;
-  imageUrl: string;
-  inStock: boolean;
+// --- CHANGE 1: IMPORT OUR NEW BUTTON COMPONENT ---
+import Price from '@/components/product/Price'; 
+import React from 'react';
+
+const getData = async (id: string) => {
+  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("Failed!");
+  }
+
+  return res.json();
 };
 
-const ProductDetailPage = () => {
-  const [product, setProduct] = useState<Product | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
-  const { id } = router.query;
-
-  useEffect(() => {
-    if (!id) return;
-    
-    const fetchProduct = async () => {
-      try {
-        const res = await fetch(`/api/products/${id}`);
-        if (!res.ok) {
-          throw new Error("Failed to fetch product details");
-        }
-        const data = await res.json();
-        setProduct(data);
-      } catch (err: any) {
-        setError(err.message || "Something went wrong!");
-      }
-    };
-
-    fetchProduct();
-  }, [id]);
-
-  if (error) {
-    return <div className="text-red-500 text-center mt-10">{error}</div>;
-  }
-
-  if (!product) {
-    return <div className="text-center mt-10 text-gray-500">Loading product...</div>;
-  }
+const SingleProductPage = async ({ params }: { params: { id: string } }) => {
+  const singleProduct = await getData(params.id);
 
   return (
-    <div className="max-w-5xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8 text-center">{product.name}</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div>
+    <div className="p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-around text-red-500 md:flex-row md:gap-8 md:items-center">
+      {/* IMAGE CONTAINER */}
+      {singleProduct.img && (
+        <div className="relative w-full h-1/2 md:h-[70%]">
           <img
-            src={product.imageUrl}
-            alt={product.name}
-            className="w-full h-96 object-cover mb-4 rounded"
+            src={singleProduct.img}
+            alt=""
+            className="object-contain"
           />
         </div>
-        <div>
-          <p className="text-lg">{product.description}</p>
-          <p className="text-xl font-bold mt-4">${product.price.toFixed(2)}</p>
-          <p className="text-gray-500 mt-2">{product.inStock ? "In stock" : "Out of stock"}</p>
-        </div>
+      )}
+      {/* TEXT CONTAINER */}
+      <div className="h-1/2 flex flex-col gap-4 md:h-[70%] md:justify-center md:gap-6 xl:gap-8">
+        <h1 className="text-3xl font-bold uppercase xl:text-5xl">{singleProduct.title}</h1>
+        <p>{singleProduct.desc}</p>
+        
+        {/* --- CHANGE 2: REPLACE THE OLD PRICE WITH OUR NEW COMPONENT --- */}
+        <Price product={singleProduct} />
+
       </div>
     </div>
   );
 };
 
-export default ProductDetailPage;
+export default SingleProductPage;

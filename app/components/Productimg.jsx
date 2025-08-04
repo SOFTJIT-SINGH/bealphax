@@ -1,3 +1,4 @@
+// This component displays a product image section with a fixed height.
 const Productimg = () => {
   return (
     <div>

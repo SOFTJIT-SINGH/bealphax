@@ -1,3 +1,5 @@
+// This component displays a list of products with images, names, prices, and an "Add to Cart" button.
+
 import Link from 'next/link'
 import Image from 'next/image'
 const Productslist = () => {
