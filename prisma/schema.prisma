@@ -17,4 +17,30 @@ model Product {
   desc      String
   price     Float
   img       String? // The '?' makes the image optional
+  orderItems OrderItem[]
+}
+
+model Order {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  createdAt  DateTime    @default(now())
+  totalPrice Float
+  status     String      @default("pending") // e.g., pending, shipped, delivered
+  address    String
+  userEmail  String      // To know who placed the order
+  items      OrderItem[] // An order has many items
+}
+
+model OrderItem {
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
+  productId String  @db.ObjectId
+  orderId   String  @db.ObjectId
+  quantity  Int
+  price     Float
+  
+  // Define the relationships
+  product   Product @relation(fields: [productId], references: [id])
+  order     Order   @relation(fields: [orderId], references: [id])
+
+  // Ensure each product appears only once per order
+  @@unique([orderId, productId])
 }

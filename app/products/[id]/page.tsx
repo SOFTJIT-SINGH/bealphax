@@ -1,9 +1,9 @@
-// app/products/[id]/page.tsx
-
-import Price from './Price'; // Using the component from the same folder
 import React from 'react';
+import prisma from "@/lib/prisma";
+import Image from 'next/image';
+import Price from '../../components/product/Price'; // Using the corrected relative path
 
-// Define the shape of our product data to avoid errors
+// Define the shape of our product data
 interface Product {
   id: string;
   title: string;
@@ -15,18 +15,10 @@ interface Product {
 // This function fetches the data for one specific product
 const getData = async (id: string): Promise<Product | null> => {
   try {
-    // We fetch directly from our API endpoint
-    const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-      cache: "no-store", // Ensures we always get the latest data
+    const product = await prisma.product.findUnique({
+      where: { id: id },
     });
-
-    // If the API returns an error (like 404 or 500), we return null
-    if (!res.ok) {
-      console.error(`API Error: ${res.status} ${res.statusText}`);
-      return null;
-    }
-
-    return res.json();
+    return product;
   } catch (error) {
     console.error("Failed to fetch product:", error);
     return null;
@@ -36,35 +28,62 @@ const getData = async (id: string): Promise<Product | null> => {
 const SingleProductPage = async ({ params }: { params: { id: string } }) => {
   const singleProduct = await getData(params.id);
 
-  // If we couldn't find a product, we show a friendly message
   if (!singleProduct) {
     return (
-      <div className="p-10 text-center text-xl text-red-500">
+      <div className="container mx-auto my-10 p-10 text-center text-xl text-zinc-600 dark:text-zinc-400">
         Sorry, this product could not be found.
       </div>
     );
   }
 
-  // If we found the product, we display it
   return (
-    <div className="p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-around text-red-500 md:flex-row md:gap-8 md:items-center">
-      {/* IMAGE CONTAINER */}
-      {singleProduct.img && (
-        <div className="relative w-full h-1/2 md:h-[70%]">
-          <img
-            src={singleProduct.img}
-            alt={singleProduct.title}
-            className="object-contain"
-          />
-        </div>
-      )}
-      {/* TEXT CONTAINER */}
-      <div className="h-1/2 flex flex-col gap-4 md:h-[70%] md:justify-center md:gap-6 xl:gap-8">
-        <h1 className="text-3xl font-bold uppercase xl:text-5xl">{singleProduct.title}</h1>
-        <p>{singleProduct.desc}</p>
+    <div className="container mx-auto my-10 px-4 sm:px-6 lg:px-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 items-start">
         
-        {/* Pass the loaded product data into our interactive Price component */}
-        <Price product={singleProduct} />
+        {/* Image Gallery Section */}
+        <div className="w-full">
+          <div className="aspect-square relative bg-zinc-200 dark:bg-zinc-800 rounded-lg shadow-md">
+            {singleProduct.img ? (
+              <Image
+                src={singleProduct.img}
+                alt={singleProduct.title}
+                fill
+                className="object-cover rounded-lg"
+              />
+            ) : (
+              <div className="flex items-center justify-center h-full text-zinc-500">
+                No Image Available
+              </div>
+            )}
+          </div>
+          {/* You can add thumbnail images here in the future */}
+        </div>
+
+        {/* Product Details Section */}
+        <div className="flex flex-col gap-4">
+          <h1 className="text-3xl lg:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
+            {singleProduct.title}
+          </h1>
+          
+          <p className="text-base text-zinc-600 dark:text-zinc-400">
+            {singleProduct.desc}
+          </p>
+
+          <div className="mt-4">
+            {/* The Price component handles the price and Add to Cart button */}
+            <Price product={singleProduct} />
+          </div>
+
+          {/* Additional details like reviews, materials, etc. can go here */}
+          <div className="mt-6 border-t pt-4 border-zinc-200 dark:border-zinc-700">
+            <h3 className="text-sm font-medium text-zinc-900 dark:text-zinc-200">Product Details</h3>
+            <ul className="mt-2 text-sm text-zinc-500 dark:text-zinc-400 space-y-1">
+              <li>- High-quality materials</li>
+              <li>- Modern, stylish fit</li>
+              <li>- Machine washable</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
   );

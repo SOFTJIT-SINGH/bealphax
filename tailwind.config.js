@@ -2,6 +2,7 @@
 import daisyui from 'daisyui'
 
 const config = {
+    darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx}',
     './pages/**/*.{js,ts,jsx,tsx}',

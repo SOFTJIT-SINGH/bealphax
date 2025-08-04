@@ -2,27 +2,30 @@
 
 import { useCartStore } from "@/store/cartStore";
 import React, { useEffect } from "react";
-import toast from "react-hot-toast"
+import toast from "react-hot-toast";
 
 const Price = ({ product }: { product: any }) => {
   const { addToCart } = useCartStore();
 
   useEffect(() => {
-    // This makes sure the cart is loaded from storage when the page loads
     useCartStore.persist.rehydrate();
   }, []);
 
   const handleCart = () => {
     addToCart(product);
-    toast.success("The product was added to the cart!");
+    toast.success("Added to cart!");
   };
 
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-2xl font-bold">${parseFloat(product.price).toFixed(2)}</h2>
+      {/* Price is now larger and more prominent */}
+      <span className="text-2xl font-bold text-zinc-900 dark:text-zinc-100">
+        ${parseFloat(product.price).toFixed(2)}
+      </span>
+      {/* The button has a more modern, clean look */}
       <button
-        className="uppercase w-56 bg-red-500 text-white p-3 ring-1 ring-red-500"
         onClick={handleCart}
+        className="w-full max-w-xs bg-zinc-900 text-white dark:bg-zinc-50 dark:text-zinc-900 py-3 px-6 rounded-lg font-semibold hover:opacity-90 transition-opacity"
       >
         Add to Cart
       </button>

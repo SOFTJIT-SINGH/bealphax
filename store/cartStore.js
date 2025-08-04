@@ -1,40 +1,47 @@
 import { create } from 'zustand';
-// --- 1. IMPORT THE 'PERSIST' MIDDLEWARE ---
 import { persist } from 'zustand/middleware';
 
-// --- 2. WRAP YOUR STORE DEFINITION IN persist() ---
 export const useCartStore = create(
   persist(
     (set, get) => ({
-      // State: An array to hold the products in the cart
-      cart: [],
-      
-      // Actions: Functions to modify the state
+      items: [],
       addToCart: (product) => {
-        // Check if the product is already in the cart to avoid duplicates if needed
-        const cart = get().cart;
-        const findProduct = cart.find((p) => p.id === product.id);
-
-        if (findProduct) {
-          // You can decide to increase quantity here if you want
-          return;
+        const cartItems = get().items;
+        const productInCart = cartItems.find((item) => item.id === product.id);
+        if (productInCart) {
+          const updatedCart = cartItems.map((item) =>
+            item.id === product.id
+              ? { ...item, quantity: item.quantity + 1 }
+              : item
+          );
+          set({ items: updatedCart });
+        } else {
+          set({ items: [...cartItems, { ...product, quantity: 1 }] });
         }
-
-        set((state) => ({
-          cart: [...state.cart, product],
-        }));
       },
-
-      removeFromCart: (productId) =>
-        set((state) => ({
-          cart: state.cart.filter((item) => item.id !== productId),
-        })),
-
-      clearCart: () => set({ cart: [] }),
+      removeFromCart: (productId) => {
+        set({
+          items: get().items.filter((item) => item.id !== productId),
+        });
+      },
+      updateQuantity: (productId, quantity) => {
+          if (quantity < 1) {
+              get().removeFromCart(productId);
+          } else {
+              set({
+                  items: get().items.map((item) => 
+                      item.id === productId ? { ...item, quantity: quantity } : item
+                  )
+              });
+          }
+      },
+      // --- ADD THIS FUNCTION ---
+      clearCart: () => {
+        set({ items: [] });
+      }
     }),
     {
-      // --- 3. CONFIGURE PERSISTENCE ---
-      name: 'cart-storage', // The name of the item in localStorage
+      name: 'cart-storage',
     }
   )
 );
