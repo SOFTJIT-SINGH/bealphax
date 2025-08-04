@@ -24,12 +24,14 @@ export async function POST(req: Request) {
     const title = body.get("title") as string;
     const desc = body.get("desc") as string;
     const price = parseFloat(body.get("price") as string);
+    const img = body.get("img") as string;
 
     const product = await prisma.product.create({
       data: {
         title: title,
         desc: desc,
         price: price,
+        img,
       },
     });
 

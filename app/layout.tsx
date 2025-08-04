@@ -6,6 +6,7 @@ import Footer from './components/footer'
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from 'react-hot-toast'
 
+
 // import './style.css'
 
 const geistSans = Geist({
