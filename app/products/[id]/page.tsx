@@ -1,24 +1,51 @@
 // app/products/[id]/page.tsx
 
-// --- CHANGE 1: IMPORT OUR NEW BUTTON COMPONENT ---
-import Price from '@/components/product/Price'; 
+import Price from './Price'; // Using the component from the same folder
 import React from 'react';
 
-const getData = async (id: string) => {
-  const res = await fetch(`http://localhost:3000/api/products/${id}`, {
-    cache: "no-store",
-  });
+// Define the shape of our product data to avoid errors
+interface Product {
+  id: string;
+  title: string;
+  desc: string;
+  price: number;
+  img?: string | null;
+}
 
-  if (!res.ok) {
-    throw new Error("Failed!");
+// This function fetches the data for one specific product
+const getData = async (id: string): Promise<Product | null> => {
+  try {
+    // We fetch directly from our API endpoint
+    const res = await fetch(`http://localhost:3000/api/products/${id}`, {
+      cache: "no-store", // Ensures we always get the latest data
+    });
+
+    // If the API returns an error (like 404 or 500), we return null
+    if (!res.ok) {
+      console.error(`API Error: ${res.status} ${res.statusText}`);
+      return null;
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Failed to fetch product:", error);
+    return null;
   }
-
-  return res.json();
 };
 
 const SingleProductPage = async ({ params }: { params: { id: string } }) => {
   const singleProduct = await getData(params.id);
 
+  // If we couldn't find a product, we show a friendly message
+  if (!singleProduct) {
+    return (
+      <div className="p-10 text-center text-xl text-red-500">
+        Sorry, this product could not be found.
+      </div>
+    );
+  }
+
+  // If we found the product, we display it
   return (
     <div className="p-4 lg:px-20 xl:px-40 h-screen flex flex-col justify-around text-red-500 md:flex-row md:gap-8 md:items-center">
       {/* IMAGE CONTAINER */}
@@ -26,7 +53,7 @@ const SingleProductPage = async ({ params }: { params: { id: string } }) => {
         <div className="relative w-full h-1/2 md:h-[70%]">
           <img
             src={singleProduct.img}
-            alt=""
+            alt={singleProduct.title}
             className="object-contain"
           />
         </div>
@@ -36,9 +63,8 @@ const SingleProductPage = async ({ params }: { params: { id: string } }) => {
         <h1 className="text-3xl font-bold uppercase xl:text-5xl">{singleProduct.title}</h1>
         <p>{singleProduct.desc}</p>
         
-        {/* --- CHANGE 2: REPLACE THE OLD PRICE WITH OUR NEW COMPONENT --- */}
+        {/* Pass the loaded product data into our interactive Price component */}
         <Price product={singleProduct} />
-
       </div>
     </div>
   );

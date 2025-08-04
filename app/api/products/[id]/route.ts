@@ -1,30 +1,32 @@
-// fetching a single product from the database and sending it as JSON.
+// app/api/products/[id]/route.ts
 
-
+import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db/prisma";
 
-export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-  const id = Number(params.id);
-
-  console.log(`Attempting to delete product with id: ${id}`); // Debug log
+// This function handles GET requests to /api/products/[any_id]
+export async function GET(
+  req: Request,
+  { params }: { params: { id: string } }
+) {
+  const { id } = params;
 
   try {
-    // Make sure the product exists before attempting deletion
-    const product = await prisma.product.findUnique({ where: { id } });
-    if (!product) {
-      console.log(`Product not found with id: ${id}`); // Debug log
-      return NextResponse.json({ error: "Product not found" }, { status: 404 });
-    }
-
-    await prisma.product.delete({
-      where: { id },
+    const product = await prisma.product.findUnique({
+      where: {
+        id: id,
+      },
     });
 
-    console.log(`Product with id: ${id} deleted successfully`); // Debug log
-    return NextResponse.json({ message: "Product deleted successfully" });
+    if (!product) {
+      return NextResponse.json({ message: "Product not found" }, { status: 404 });
+    }
+
+    return NextResponse.json(product, { status: 200 });
   } catch (err) {
-    console.error("Error deleting product:", err); // Debug log
-    return NextResponse.json({ error: "Failed to delete product" }, { status: 500 });
+    console.error(`Error fetching product ${id}:`, err);
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 }
+    );
   }
 }
