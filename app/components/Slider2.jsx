@@ -46,6 +46,7 @@ export default function Slider() {
       pagination={{ clickable: true }}
       navigation={true}
       className='h-[calc(100vh-80px)]'
+      // className='h-[calc(100vh-80px)] w-full aspect-[3/1] md:aspect-[16/9] lg:aspect-[16/7] xl:aspect-[16/6] 2xl:aspect-[16/5]'
     >
       {slides.map((slide) => (
         <SwiperSlide key={slide.id}>
