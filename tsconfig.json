@@ -20,17 +20,14 @@
     ],
     "paths": {
       "@/*": ["./*"],
-      "@/lib/*": ["./lib/*"],
-      "@/lib/db/*": ["./lib/db/*"]
+      "@/lib/*": ["./lib/*"]
     }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    ".next/types/**/*.ts",
-    "app/components/searchbar.jsx",
-    "helpers/mailer.jsx"
-, "store/cartStore.js"  ],
+    ".next/types/**/*.ts"
+  ],
   "exclude": ["node_modules"]
 }
