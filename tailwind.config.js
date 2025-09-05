@@ -1,18 +1,19 @@
-/** @type {import('tailwindcss').Config} */
-import daisyui from 'daisyui'
+// tailwind.config.mjs
+import daisyui from 'daisyui';
 
+/** @type {import('tailwindcss').Config} */
 const config = {
-    darkMode: 'class',
+  darkMode: 'class',
   content: [
-    './app/**/*.{js,ts,jsx,tsx}',
-    './pages/**/*.{js,ts,jsx,tsx}',
-    './components/**/*.{js,ts,jsx,tsx}',
+    './app/**/*.{js,ts,jsx,tsx,mdx}',
+    './pages/**/*.{js,ts,jsx,tsx,mdx}',
+    './components/**/*.{js,ts,jsx,tsx,mdx}',
   ],
   theme: {
     extend: {
       animation: {
-        'toast-slide-in': 'toastSlideIn 0.5s ease-out', // Slide-in from bottom
-        'toast-fade-out': 'toastFadeOut 2s ease-out', // Fade-out effect
+        'toast-slide-in': 'toastSlideIn 0.5s ease-out',
+        'toast-fade-out': 'toastFadeOut 2s ease-out',
       },
       keyframes: {
         toastSlideIn: {
@@ -37,6 +38,6 @@ const config = {
     },
   },
   plugins: [daisyui],
-}
+};
 
-export default config
+export default config;

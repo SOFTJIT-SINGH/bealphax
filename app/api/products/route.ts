@@ -1,9 +1,8 @@
 // app/api/products/route.ts
-
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// This is the function we are adding back in
+// GET all products
 export async function GET() {
   try {
     const products = await prisma.product.findMany();
@@ -17,20 +16,17 @@ export async function GET() {
   }
 }
 
-// This is the function you just fixed! It stays the same.
+// CREATE a new product
 export async function POST(req: Request) {
   try {
-    const body = await req.formData();
-    const title = body.get("title") as string;
-    const desc = body.get("desc") as string;
-    const price = parseFloat(body.get("price") as string);
-    const img = body.get("img") as string;
+    const body = await req.json();
+    const { title, desc, price, img } = body;
 
     const product = await prisma.product.create({
       data: {
-        title: title,
-        desc: desc,
-        price: price,
+        title,
+        desc,
+        price: parseFloat(price),
         img,
       },
     });

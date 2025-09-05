@@ -1,5 +1,5 @@
+// app/api/orders/route.ts
 import prisma from "@/lib/prisma";
-import { useCartStore } from "@/store/cartStore";
 import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
@@ -34,6 +34,41 @@ export async function POST(req: Request) {
 
   } catch (err) {
     console.error("Error creating order:", err);
+    return NextResponse.json(
+      { message: "Something went wrong!" },
+      { status: 500 }
+    );
+  }
+}
+
+// Add GET method to fetch orders
+export async function GET(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const userEmail = searchParams.get('userEmail');
+    
+    let whereClause = {};
+    if (userEmail) {
+      whereClause = { userEmail };
+    }
+    
+    const orders = await prisma.order.findMany({
+      where: whereClause,
+      include: {
+        orderItems: {
+          include: {
+            product: true
+          }
+        }
+      },
+      orderBy: {
+        createdAt: 'desc'
+      }
+    });
+    
+    return NextResponse.json(orders, { status: 200 });
+  } catch (err) {
+    console.error("Error fetching orders:", err);
     return NextResponse.json(
       { message: "Something went wrong!" },
       { status: 500 }

@@ -2,19 +2,16 @@
 import prisma from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
-// This function handles GET requests to /api/products/[any_id]
+// GET single product
 export async function GET(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    // Await the params to get the actual values
-    const { id } = await params;
+    const { id } = await context.params;
 
     const product = await prisma.product.findUnique({
-      where: {
-        id: id,
-      },
+      where: { id },
     });
 
     if (!product) {
@@ -31,13 +28,13 @@ export async function GET(
   }
 }
 
-// Add similar fixes for other HTTP methods if needed
+// UPDATE a product
 export async function PUT(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     const body = await req.json();
     
     const updatedProduct = await prisma.product.update({
@@ -55,12 +52,13 @@ export async function PUT(
   }
 }
 
+// DELETE a product
 export async function DELETE(
   req: Request,
-  { params }: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
+    const { id } = await context.params;
     
     await prisma.product.delete({
       where: { id },
