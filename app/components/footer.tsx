@@ -78,7 +78,7 @@ const Footer = () => {
               <span className="absolute bottom-0 left-0 w-12 h-0.5 bg-blue-600"></span>
             </h4>
             <ul className="space-y-3">
-              {['About Us', 'Privacy Policy', 'Terms & Conditions', 'Contact Us', 'Blog', 'FAQs'].map((item, i) => (
+              {['About Us', 'Privacy Policy', 'Terms & Conditions', 'Contact', 'Blog', 'FAQs'].map((item, i) => (
                 <li key={i}>
                   <Link
                     href={`/${item.toLowerCase().replace(/\s+/g, '-')}`}
