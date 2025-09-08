@@ -1,4 +1,8 @@
 // app/products/page.tsx
+// This page shows all products available in the database.
+// It fetches product data from the database using Prisma and displays them in a grid layout.
+// Each product links to its detailed page.
+
 
 import Link from 'next/link';
 import React from 'react';

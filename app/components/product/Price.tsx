@@ -1,3 +1,10 @@
+// bealphax/app/components/product/Price.tsx
+/**
+ * This component displays the price of a product and a button to add it to cart.
+ * When the button is clicked, the product is added to the cart and a toast is
+ * displayed to indicate success.
+ */
+
 'use client'
 
 import { useCartStore } from "@/store/cartStore";
