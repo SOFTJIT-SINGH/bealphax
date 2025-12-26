@@ -97,7 +97,7 @@ import React from 'react';
 import prisma from "@/lib/prisma";
 import Image from 'next/image';
 import { Metadata } from 'next';
-import ProductInteraction from '@/components/ProductInteraction';
+// import ProductInteraction from '@/components/ProductInteraction';
 import Price from '../../components/product/Price';
 
 // Define the shape of our product data
@@ -219,7 +219,7 @@ const SingleProductPage = async ({
           </div>
 
           {/* Product Interaction (Color, Size, Add to Cart) */}
-          <ProductInteraction
+          {/* <ProductInteraction
             product={{
               id: singleProduct.id,
               name: singleProduct.title,
@@ -231,13 +231,13 @@ const SingleProductPage = async ({
             }}
             selectedColor={selectedColor}
             selectedSize={selectedSize}
-          />
+          /> */}
 
           {/* Payment Methods */}
           <div className="flex items-center gap-4 mt-6">
             <div className="w-10 h-6 relative">
               <Image
-                src="/klarna.png"
+                src="/pay/app.jpg"
                 alt="Klarna"
                 fill
                 className="object-contain"
@@ -245,7 +245,7 @@ const SingleProductPage = async ({
             </div>
             <div className="w-10 h-6 relative">
               <Image
-                src="/cards.png"
+                src="/cart.png"
                 alt="Credit Cards"
                 fill
                 className="object-contain"
@@ -253,7 +253,7 @@ const SingleProductPage = async ({
             </div>
             <div className="w-10 h-6 relative">
               <Image
-                src="/stripe.png"
+                src="/cards.png"
                 alt="Stripe"
                 fill
                 className="object-contain"
