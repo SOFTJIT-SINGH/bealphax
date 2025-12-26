@@ -33,6 +33,7 @@ export const useCartStore = create(
                       item.id === productId ? { ...item, quantity: quantity } : item
                   )
               });
+              
           }
       },
       // --- ADD THIS FUNCTION ---

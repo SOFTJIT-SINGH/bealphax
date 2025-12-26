@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic'
 import { Suspense } from 'react'
 
-// Use dynamic imports with loading fallbacks
+// Use dynamic imports with loading fallbacks to improve initial load performance
 const Slider = dynamic(() => import('./components/Slider2'), {
   suspense: true,
   loading: () => <div className="h-96 bg-gray-200 animate-pulse rounded-lg"></div>
