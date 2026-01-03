@@ -13,16 +13,18 @@ const ContactPage = () => {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState(null)
+  const [submitStatus, setSubmitStatus] = useState<string | null>(null)
 
-  const handleChange = (e) => {
+  // 1. FIX: Added proper TypeScript type for the Change Event
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
   }
 
-  const handleSubmit = async (e) => {
+  // 2. FIX: Added proper TypeScript type for the Form Submit Event
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setIsSubmitting(true)
     
@@ -255,7 +257,7 @@ const ContactPage = () => {
           className="text-center mt-16 pt-8 border-t border-gray-200 dark:border-gray-700"
         >
           <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">SOFTJIT SINGH</h3>
-          <p className="text-gray-600 dark:text-gray-400">Full Stack Developer & Designer</p>
+          {/* <p className="text-gray-600 dark:text-gray-400">Full Stack Developer & Designer</p> */}
         </motion.div>
       </div>
     </div>
