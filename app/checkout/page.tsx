@@ -1,7 +1,7 @@
 'use client'
 
 import { useCartStore } from "@/store/cartStore";
-import { useUser } from "@clerk/nextjs"; // <-- Import useUser from Clerk
+import { useUser } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState, useMemo } from "react";
 import toast from "react-hot-toast";
@@ -11,7 +11,6 @@ const CheckoutPage = () => {
   const [hasHydrated, setHasHydrated] = useState(false);
   const router = useRouter();
 
-  // Get the current user from Clerk
   const { user } = useUser();
 
   useEffect(() => {
@@ -19,7 +18,11 @@ const CheckoutPage = () => {
   }, []);
   
   const totalPrice = useMemo(() => {
-    return items.reduce((acc, item) => acc + (item.price * item.quantity), 0);
+    // 1. FIX: Cast item to 'any' and wrap price in Number()
+    return items.reduce((acc, item: any) => {
+      const price = item.price ? Number(item.price) : 0;
+      return acc + (price * (item.quantity || 1));
+    }, 0);
   }, [items]);
 
   if (!hasHydrated) {
@@ -54,9 +57,9 @@ const CheckoutPage = () => {
         }
 
         const data = await res.json();
-        clearCart(); // Clear the cart on success
+        clearCart(); 
         toast.success("Order placed successfully!");
-        router.push(`/orders/${data.orderId}`); // Redirect to a confirmation page
+        router.push(`/orders/${data.orderId}`);
 
     } catch (err) {
         console.error(err);
@@ -92,10 +95,11 @@ const CheckoutPage = () => {
       <div className="md:w-1/3 bg-gray-50 p-6 rounded-lg h-fit">
         <h2 className="text-xl font-bold mb-4">Your Order</h2>
         <div className="space-y-2">
-          {items.map(item => (
+          {items.map((item: any) => (
             <div key={item.id} className="flex justify-between text-sm">
               <span>{item.title} x{item.quantity}</span>
-              <span>${(item.price * item.quantity).toFixed(2)}</span>
+              {/* 2. FIX: Wrap price in Number() here as well */}
+              <span>${(Number(item.price) * item.quantity).toFixed(2)}</span>
             </div>
           ))}
         </div>
