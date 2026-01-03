@@ -1,31 +1,40 @@
 'use client';
+
 import Image from 'next/image';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import React from 'react';
 
 // Animation variants
-const fadeInUp = {
+const fadeInUp: Variants = {
   hidden: { opacity: 0, y: 50 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
 };
 
-const fadeInLeft = {
+const fadeInLeft: Variants = {
   hidden: { opacity: 0, x: -50 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
 };
 
-const fadeInRight = {
+const fadeInRight: Variants = {
   hidden: { opacity: 0, x: 50 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6 } }
 };
 
-const scaleIn = {
+const scaleIn: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: { opacity: 1, scale: 1, transition: { duration: 0.6 } }
 };
 
-// Animated Section Component
-const AnimatedSection = ({ children, variant, className = "" }) => {
+// --- 1. Define the interface for the props ---
+interface AnimatedSectionProps {
+  children: React.ReactNode;
+  variant: Variants;
+  className?: string;
+}
+
+// --- 2. Apply the interface to the component ---
+const AnimatedSection = ({ children, variant, className = "" }: AnimatedSectionProps) => {
   const [ref, inView] = useInView({
     triggerOnce: true,
     threshold: 0.1,
