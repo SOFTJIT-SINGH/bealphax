@@ -1,38 +1,44 @@
-import type { NextConfig } from 'next'
+import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
+  // Server Actions are strictly stable in Next.js 15/16, so this experimental block is usually not needed.
+  // You can keep it if you have other experimental features, otherwise it's safe to remove.
   experimental: {
-    serverActions: {}, // Correct ✅
+    // serverActions: {}, 
   },
 
-  serverExternalPackages: ['@prisma/client'], // Moved here ✅
+  serverExternalPackages: ['@prisma/client'],
 
   images: {
-    domains: [
-      "picsum.photos", 
-      "images.unsplash.com", 
-      "res.cloudinary.com"
-    ],
-
+    // Combine ALL your domains here using remotePatterns (recommended over 'domains')
     remotePatterns: [
       {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
-        port: '',
-        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cdn.dummyjson.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'utfs.io', // Highly recommended if using UploadThing for images
       },
       {
         protocol: 'http',
         hostname: 'localhost',
         port: '3000',
-        pathname: '/**',
       },
     ],
   },
-  images: {
-    domains: ['cdn.dummyjson.com'],
-  },
-  /* config options here */
-}
+};
 
-export default nextConfig
+export default nextConfig;

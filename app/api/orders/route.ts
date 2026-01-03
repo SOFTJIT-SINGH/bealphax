@@ -55,7 +55,8 @@ export async function GET(req: Request) {
     const orders = await prisma.order.findMany({
       where: whereClause,
       include: {
-        orderItems: {
+        // FIXED: Changed 'orderItems' to 'items' to match your schema
+        items: { 
           include: {
             product: true
           }
