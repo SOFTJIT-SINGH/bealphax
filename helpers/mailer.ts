@@ -1,28 +1,35 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 
-export const sendEmail = async ({ email, emailType, userId }) => {
+// 1. Define the interface for the function arguments
+interface SendEmailParams {
+  email: string;
+  emailType: "VERIFY" | "RESET"; // Or just 'string' if you prefer strictness
+  userId: string;
+}
+
+// 2. Apply the type to the function parameter
+export const sendEmail = async ({ email, emailType, userId }: SendEmailParams) => {
   try {
     const transporter = nodemailer.createTransport({
       host: 'smtp.ethereal.email',
       port: 587,
-      secure: true, // true for port 465, true for other ports
       auth: {
         user: 'maddison53@ethereal.email',
-        pass: 'jn7jnAPss4f63QBp6D',
-      },
-    })
+        pass: 'jn7jnAPss4f63QBp6D'
+      }
+    });
 
     const mailOptions = {
-      from: '"BE SOFT 👻" <besofttech8@gmail.com>', // sender address
-      to: email, // list of receivers
-      subject: emailType === 'VERIFY' ? 'VERIFY UR EMAIL' : 'RESET UR PASSWORD', // Subject line
-      //   text: 'Hello world?', // plain text body
-      html: '<b>Hello world?</b>',
+      from: 'hitesh@gmail.com',
+      to: email,
+      subject: emailType === "VERIFY" ? "Verify your email" : "Reset your password",
+      html: `<p>Click <a href="${process.env.DOMAIN}/verifyemail?token=${userId}">here</a> to ${emailType === "VERIFY" ? "verify your email" : "reset your password"}</p>`
     }
 
-    const mailResponse = await transporter.sendMail(mailOptions)
-    return mailResponse
-  } catch (error) {
-    throw new Error(error.message)
+    const mailresponse = await transporter.sendMail(mailOptions);
+    return mailresponse;
+
+  } catch (error: any) {
+    throw new Error(error.message);
   }
 }
