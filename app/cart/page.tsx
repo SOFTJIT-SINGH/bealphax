@@ -2,32 +2,25 @@
 
 import { useCartStore } from "@/store/cartStore";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { ArrowRight, Trash2 } from "lucide-react";
 
-// Define strict types for the cart item to avoid inference issues
-interface CartItem {
-  id: string;
-  title: string;
-  price: string | number; // Handle both types
-  quantity: number;
-  img?: string; // Next/Image src expects a string
-}
-
+// Define the steps constant outside the component
 const steps = [
   { id: 1, title: "Shopping Cart" },
   { id: 2, title: "Shipping Address" },
   { id: 3, title: "Payment Method" },
 ];
 
-const CartPage = () => {
+// --- 1. Main Logic Component (Uses useSearchParams) ---
+const CartContent = () => {
   const { items, removeFromCart, updateQuantity } = useCartStore();
   const [hasHydrated, setHasHydrated] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   
+  // This line is what caused the error, so it lives inside this component now
   const activeStep = parseInt(searchParams.get("step") || "1");
 
   useEffect(() => {
@@ -36,7 +29,7 @@ const CartPage = () => {
 
   // Calculate the total price
   const subtotal = hasHydrated ? items.reduce((acc, item: any) => {
-    // FIX: Use Number() instead of parseFloat() to handle both string and number types
+    // Ensuring we use Number() to avoid type errors
     const price = item.price ? Number(item.price) : 0;
     const quantity = item.quantity || 1;
     return acc + price * quantity;
@@ -105,7 +98,7 @@ const CartPage = () => {
                     {item.img && (
                       <div className="relative w-32 h-32 bg-gray-50 rounded-lg overflow-hidden">
                         <Image
-                          src={typeof item.img === 'string' ? item.img : '/placeholder.png'} // Safety check for image type
+                          src={typeof item.img === 'string' ? item.img : '/placeholder.png'}
                           alt={item.title || "Product image"}
                           fill
                           className="object-cover"
@@ -124,7 +117,6 @@ const CartPage = () => {
                             onChange={(e) => updateQuantity(item.id, parseInt(e.target.value))}
                             className="w-16 p-1 text-center border border-gray-300 rounded"
                           />
-                          {/* FIX: Use Number() here as well */}
                           <p className="font-medium">
                             ${(item.price ? Number(item.price) * item.quantity : 0).toFixed(2)}
                           </p>
@@ -299,6 +291,19 @@ const CartPage = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+// --- 2. Main Page Component (Wraps with Suspense) ---
+const CartPage = () => {
+  return (
+    <Suspense fallback={
+      <div className="flex flex-col gap-8 items-center justify-center mt-12">
+        <div className="text-center p-10">Loading cart...</div>
+      </div>
+    }>
+      <CartContent />
+    </Suspense>
   );
 };
 
