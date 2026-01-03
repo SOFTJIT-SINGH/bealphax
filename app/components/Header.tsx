@@ -1,15 +1,27 @@
 'use client'
+
 import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Menu from './Menu'
 import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import { motion, AnimatePresence } from 'framer-motion'
 import Searchbar from './searchbar'
 import Navicons from './navicons'
+
+// Define links in one place for easy management
+const NAV_LINKS = [
+  { name: 'Home', href: '/' },
+  { name: 'Categories', href: '/list' }, // Updated to likely route
+  { name: 'About', href: '/about' },
+  { name: 'Contact', href: '/contact' },
+]
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
 
+  // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10)
@@ -18,126 +30,119 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
   return (
     <>
-      <header className={`fixed w-full top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/95 dark:bg-gray-900/95 shadow-md py-2' : 'bg-transparent py-4'}`}>
-        {/* Mobile Header */}
-        <div className="md:hidden">
-          <div className={`flex items-center justify-between px-4 transition-all duration-300 ${isScrolled ? 'h-16' : 'h-20'}`}>
-            <Link href='/'>
-              <div className="flex items-center gap-2">
-                <div className="relative w-8 h-8">
-                  <Image 
-                    src='/alphab.png' 
-                    alt='ALPHAX Logo' 
-                    fill 
-                    className="object-contain"
-                  />
-                </div>
-                <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-wide">
-                  BE ALPHAX
-                </span>
-              </div>
-            </Link>
+      <header 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled 
+            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm py-3' 
+            : 'bg-transparent py-5'
+        }`}
+      >
+        <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-32">
+          <div className="flex items-center justify-between">
             
+            {/* --- Logo Section --- */}
+            <Link href='/' className="flex items-center gap-2 group z-50 relative">
+              <div className="relative w-8 h-8 md:w-10 md:h-10 transition-transform duration-300 group-hover:scale-110">
+                <Image 
+                  src='/alphab.png' 
+                  alt='ALPHAX Logo' 
+                  fill 
+                  className="object-contain"
+                />
+              </div>
+              <span className="text-xl md:text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-wide">
+                ALPHAX
+              </span>
+            </Link>
+
+            {/* --- Desktop Navigation --- */}
+            <nav className="hidden md:flex items-center gap-8">
+              {NAV_LINKS.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`relative font-medium text-sm lg:text-base transition-colors duration-300 ${
+                      isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-600 dark:text-gray-300 hover:text-blue-600'
+                    }`}
+                  >
+                    {link.name}
+                    {isActive && (
+                      <motion.span 
+                        layoutId="underline"
+                        className="absolute left-0 top-full block h-0.5 w-full bg-blue-600 mt-1" 
+                      />
+                    )}
+                  </Link>
+                )
+              })}
+            </nav>
+
+            {/* --- Icons & Actions --- */}
             <div className="flex items-center gap-4">
+              <div className="hidden md:block">
+                <Searchbar />
+              </div>
+              <Navicons />
+
+              {/* Mobile Menu Button */}
               <button 
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="p-2 rounded-lg bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
+                className="md:hidden p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors z-50 relative"
                 aria-label="Toggle menu"
               >
-                <svg 
-                  className="w-6 h-6" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  viewBox="0 0 24 24" 
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  {isMobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
+                <div className="w-6 h-5 flex flex-col justify-between">
+                  <span className={`h-0.5 w-full bg-current transition-transform duration-300 ${isMobileMenuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+                  <span className={`h-0.5 w-full bg-current transition-opacity duration-300 ${isMobileMenuOpen ? 'opacity-0' : ''}`} />
+                  <span className={`h-0.5 w-full bg-current transition-transform duration-300 ${isMobileMenuOpen ? '-rotate-45 -translate-y-2.5' : ''}`} />
+                </div>
               </button>
             </div>
+
           </div>
-          
-          {/* Mobile Menu Dropdown */}
+        </div>
+
+        {/* --- Mobile Menu Overlay --- */}
+        <AnimatePresence>
           {isMobileMenuOpen && (
-            <div className="absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-lg border-t border-gray-200 dark:border-gray-800 py-4 px-4 animate-fadeIn">
+            <motion.div
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="absolute top-0 left-0 w-full h-screen bg-white dark:bg-gray-900 pt-24 px-6 md:hidden flex flex-col gap-6 shadow-xl"
+            >
+              {/* Mobile Search */}
+              <div className="mb-4">
+                 <Searchbar />
+              </div>
+
+              {/* Mobile Links */}
               <div className="flex flex-col space-y-4">
-                <Link href="/" className="py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  Home
-                </Link>
-                <Link href="#" className="py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  Categories
-                </Link>
-                <Link href="/about" className="py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  About
-                </Link>
-                <Link href="/contact" className="py-2 px-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                  Contact
-                </Link>
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-800">
-                  <Searchbar />
-                </div>
+                {NAV_LINKS.map((link) => (
+                  <Link 
+                    key={link.name}
+                    href={link.href}
+                    className="text-xl font-medium text-gray-800 dark:text-gray-100 py-2 border-b border-gray-100 dark:border-gray-800"
+                  >
+                    {link.name}
+                  </Link>
+                ))}
               </div>
-            </div>
+            </motion.div>
           )}
-        </div>
-
-        {/* Desktop Header */}
-        <div className="hidden md:flex">
-          <div className="container mx-auto px-4 md:px-8 lg:px-16 xl:px-32 2xl:px-64">
-            <div className="flex items-center justify-between transition-all duration-300">
-              {/* Left Section */}
-              <div className="flex items-center gap-12 w-1/3 xl:w-1/2">
-                <Link href='/' className="flex items-center gap-3 group">
-                  <div className="relative w-8 h-8 transition-transform duration-300 group-hover:scale-110">
-                    <Image 
-                      src='/alphab.png' 
-                      alt='ALPHAX Logo' 
-                      fill 
-                      className="object-contain"
-                    />
-                  </div>
-                  <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent tracking-wide transition-all duration-300 group-hover:scale-105">
-                    ALPHAX
-                  </span>
-                </Link>
-
-                <nav className="hidden lg:flex gap-6">
-                  {[
-                    { name: 'Home', href: '/' },
-                    { name: 'Categories', href: '#' },
-                    { name: 'About', href: '/about' },
-                    { name: 'Contact', href: '/contact' },
-                  ].map((item, index) => (
-                    <Link
-                      key={index}
-                      href={item.href}
-                      className="relative py-2 font-medium text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors group/navlink"
-                    >
-                      {item.name}
-                      <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover/navlink:w-full"></span>
-                    </Link>
-                  ))}
-                </nav>
-              </div>
-
-              {/* Right Section */}
-              <div className="flex items-center justify-end gap-6 w-2/3">
-                <Searchbar />
-                <Navicons />
-              </div>
-            </div>
-          </div>
-        </div>
+        </AnimatePresence>
       </header>
       
-      {/* Add spacing to prevent content from being hidden behind fixed header */}
-      <div className="h-20 md:h-24"></div>
+      {/* Spacer to prevent content overlap */}
+      <div className="h-20" />
     </>
   )
 }

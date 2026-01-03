@@ -2,16 +2,15 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { UploadDropzone } from "@/lib/uploadthing";
+// import { UploadDropzone } from "@/lib/uploadthing"; // 1. Commented out import
 import toast from "react-hot-toast";
 
 const AddProduct = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   
-  // --- 1. NEW STATE TO MANAGE UPLOAD METHOD ---
-  const [uploadMethod, setUploadMethod] = useState<'upload' | 'link'>('upload');
-  // This state will hold the URL from either method
+  // 2. Switched default to 'link' so the form works right away
+  const [uploadMethod, setUploadMethod] = useState<'upload' | 'link'>('link');
   const [imageUrl, setImageUrl] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -20,13 +19,10 @@ const AddProduct = () => {
 
     const formData = new FormData(e.currentTarget);
     
-    // --- 2. ADD THE IMAGE URL TO THE FORM DATA ---
-    // We add the imageUrl from our state, which is set by either the uploader or the input field
     if (imageUrl) {
       formData.append("img", imageUrl);
     } else {
-        // If you want to make an image required, you can handle that here
-        toast.error("Please upload an image or provide a link.");
+        toast.error("Please provide a link.");
         setLoading(false);
         return;
     }
@@ -55,32 +51,38 @@ const AddProduct = () => {
       <form className="w-full max-w-lg flex flex-col gap-4" onSubmit={handleSubmit}>
         <h1 className="text-4xl text-center w-full">Add New Product</h1>
 
-        {/* --- 3. NEW: TABS TO CHOOSE UPLOAD METHOD --- */}
-        <div className="flex border-b">
+        {/* 3. Commented out the tabs since only 'link' is available for now */}
+        {/* <div className="flex border-b">
             <button type="button" onClick={() => setUploadMethod('upload')} className={`p-2 ${uploadMethod === 'upload' ? 'border-b-2 border-red-500' : ''}`}>
                 Upload Image
             </button>
             <button type="button" onClick={() => setUploadMethod('link')} className={`p-2 ${uploadMethod === 'link' ? 'border-b-2 border-red-500' : ''}`}>
                 Use Image Link
             </button>
-        </div>
+        </div> */}
 
-        {/* --- 4. CONDITIONAL UI FOR UPLOAD METHOD --- */}
         {uploadMethod === 'upload' ? (
-            <div>
-                <label>Upload Image</label>
-                <UploadDropzone
-                    endpoint="imageUploader"
-                    onClientUploadComplete={(res) => {
-                        if (res && res.length > 0) {
-                            setImageUrl(res[0].url);
-                            toast.success("Upload Completed!");
-                        }
-                    }}
-                    onUploadError={(error: Error) => {
-                        toast.error(`Upload Error! ${error.message}`);
-                    }}
-                />
+            // 4. Commented out the UploadDropzone component
+            // <div>
+            //     <label>Upload Image</label>
+            //     <UploadDropzone
+            //         endpoint="imageUploader"
+            //         onClientUploadComplete={(res) => {
+            //             if (res && res.length > 0) {
+            //                 setImageUrl(res[0].url);
+            //                 toast.success("Upload Completed!");
+            //             }
+            //         }}
+            //         onUploadError={(error: Error) => {
+            //             toast.error(`Upload Error! ${error.message}`);
+            //         }}
+            //     />
+            // </div>
+            <div className="text-center p-4 border-2 border-dashed border-gray-300 rounded-md">
+                <p>Image Upload feature is coming soon.</p>
+                <button type="button" onClick={() => setUploadMethod('link')} className="text-red-500 underline mt-2">
+                    Use Image Link instead
+                </button>
             </div>
         ) : (
             <div className="w-full flex flex-col gap-2">

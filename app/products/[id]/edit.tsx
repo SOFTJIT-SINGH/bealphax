@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+// 1. CHANGED: Import from next/navigation instead of next/router
+import { useRouter, useParams } from "next/navigation"; 
+import { toast } from 'react-hot-toast';
 
 type Product = {
   id: string;
@@ -14,8 +16,12 @@ type Product = {
 const EditProductPage = () => {
   const [product, setProduct] = useState<Product | null>(null);
   const [error, setError] = useState<string | null>(null);
+  
   const router = useRouter();
-  const { id } = router.query;
+  
+  // 2. CHANGED: Use useParams() to get the dynamic ID
+  const params = useParams();
+  const id = params?.id; // params can be null initially, so use optional chaining
 
   useEffect(() => {
     if (!id) return;
@@ -61,9 +67,11 @@ const EditProductPage = () => {
         throw new Error("Failed to update product");
       }
 
+      toast.success("Product updated!");
       router.push(`/products/${product.id}`);
     } catch (err: any) {
       setError(err.message || "Something went wrong!");
+      toast.error("Failed to update");
     }
   };
 
