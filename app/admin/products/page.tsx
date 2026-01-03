@@ -2,6 +2,9 @@ import prisma from "@/lib/prisma";
 import Link from "next/link";
 import Image from "next/image";
 
+// 1. FIX: Force dynamic rendering so the build doesn't fail on DB connection
+export const dynamic = 'force-dynamic';
+
 const AdminProductsPage = async () => {
   const products = await prisma.product.findMany();
 
@@ -26,12 +29,18 @@ const AdminProductsPage = async () => {
             </tr>
           </thead>
           <tbody>
-            {products.map((product) => (
+            {/* 2. FIX: Explicitly type product as 'any' to fix the TS error */}
+            {products.map((product: any) => (
               <tr key={product.id} className="border-b">
                 <td className="p-3">
                   <div className="relative w-16 h-16">
                     {product.img ? (
-                      <Image src={product.img} alt={product.title} layout="fill" objectFit="cover" className="rounded-md" />
+                      <Image 
+                        src={product.img} 
+                        alt={product.title} 
+                        fill // layout="fill" is deprecated in Next 13+, use fill
+                        className="object-cover rounded-md" // objectFit prop is deprecated, use tailwind object-cover
+                      />
                     ) : (
                       <div className="w-16 h-16 bg-gray-200 rounded-md flex items-center justify-center text-xs text-gray-500">No Img</div>
                     )}
